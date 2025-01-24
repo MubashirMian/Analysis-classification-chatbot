@@ -51,23 +51,27 @@ def get_themes(theme_list_str, subtitles_path, save_path):
 
 
 
+
+import gradio as gr  # Ensure this library is imported
+
 def main():
     with gr.Blocks() as iface:
+        # Theme Classification Section
         with gr.Row():
             with gr.Column():
                 gr.HTML("<h1>Theme Classification (Zero Shot Classifiers)</h1>")
                 with gr.Row():
                     with gr.Column():
                         plot = gr.BarPlot(
-                                    value=None,  # Start with no data
-                                    x="theme",
-                                    y="score",
-                                    title="Series Theme Scores",
-                                    tooltip=["theme", "score"],
-                                    vertical=False,
-                                    width=500,
-                                    height=260
-                                            ) 
+                            value=None,  # Start with no data
+                            x="theme",
+                            y="score",
+                            title="Series Theme Scores",
+                            tooltip=["theme", "score"],
+                            vertical=False,
+                            width=500,
+                            height=260
+                        )
                     with gr.Column():
                         theme_list = gr.Textbox(label="Themes")
                         subtitles_path = gr.Textbox(label="Subtitles or Script Path")
@@ -78,6 +82,25 @@ def main():
                             inputs=[theme_list, subtitles_path, save_path],
                             outputs=plot
                         )
+
+        # Network Classification Section
+        with gr.Row():
+            with gr.Column():
+                gr.HTML("<h1>Character Classification (Ners and Graphs)</h1>")
+                with gr.Row():
+                    with gr.Column():
+                        network_html = gr.HTML()
+                    with gr.Column():
+                        subtitles_path = gr.Textbox(label="Subtitles or Script Path")
+                        ners_path = gr.Textbox(label="Save Path")
+                        get_network_graph_button = gr.Button("Get Network Graph")
+                        # Uncomment and update the logic for the button click when needed
+                        # get_network_graph_button.click(
+                        #     get_network_graph,
+                        #     inputs=[subtitles_path, ners_path],
+                        #     outputs=network_html
+                        # )
+                        
     iface.launch(share=True)
 
 if __name__ == '__main__':

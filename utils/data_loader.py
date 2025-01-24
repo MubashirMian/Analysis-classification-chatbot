@@ -25,6 +25,7 @@ def load_subtitles_dataset(dataset_path):
 
         scripts.append(script)
         episode_num.append(episode)
+        
 
     df = pd.DataFrame.from_dict({"episode": episode_num, "script": scripts})
     return df
